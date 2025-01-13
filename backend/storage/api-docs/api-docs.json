@@ -1,0 +1,503 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentação da API",
+        "description": "Documentação apresentando todos endpoints desta API. Contém informações do corpo da requisição e respostas.",
+        "contact": {
+            "email": "hiagolaureano@hotmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/api"
+        }
+    ],
+    "paths": {
+        "/v1/usuarios": {
+            "get": {
+                "tags": [
+                    "/v1/usuarios"
+                ],
+                "summary": "Obter lista de usuários",
+                "description": "Retorna uma lista com todos usuários",
+                "operationId": "a50562fc02687abb8c834b41f547f1d1",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Número da paginação dos dados. São 15 registros por paginação",
+                        "style": "form",
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "description": "Dados da requisição",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Usuário"
+                                            }
+                                        },
+                                        "links": {
+                                            "description": "Links da paginação",
+                                            "type": "object",
+                                            "example": {
+                                                "first": "http:localhost/api/v1/usuarios?page=1",
+                                                "last": "http:localhost/api/v1/usuarios?page=3",
+                                                "prev": "http:localhost/api/v1/usuarios?page=1",
+                                                "next": "http:localhost/api/v1/usuarios?page=3"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "/v1/usuarios"
+                ],
+                "summary": "Registrar novo usuarios",
+                "description": "Cria um novo usuarios",
+                "operationId": "6792d6218f4de957db74f7edd0d63b66",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nome",
+                                    "email",
+                                    "senha"
+                                ],
+                                "properties": {
+                                    "nome": {
+                                        "description": "Nome do usuário",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "E-mail do usuário",
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "senha": {
+                                        "description": "Senha - Mínimo 6 caracteres, contendo ao menos uma letra maiúscula, uma minúscula, um número e um caractere especial.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Novo registro criado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Usuário"
+                                }
+                            }
+                        }
+                    },
+                    "420": {
+                        "description": "Erro de validação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "pattern": "O campo x é obrigatório. (+ 3 erros)"
+                                        },
+                                        "errors": {
+                                            "description": "Campos com erro de validação e lista dos erros",
+                                            "type": "object",
+                                            "example": {
+                                                "campo_x": [
+                                                    "O campo x é obrigatório."
+                                                ],
+                                                "campo_y": [
+                                                    "O campo y deve ser um inteiro."
+                                                ],
+                                                "campo_z": [
+                                                    "O campo z deve ter no máximo 30 caracteres."
+                                                ],
+                                                "campo_w": [
+                                                    "O campo w é obrigatório."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/usuarios/{id}": {
+            "get": {
+                "tags": [
+                    "/v1/usuarios"
+                ],
+                "summary": "Obter usuário específico",
+                "description": "Retorna um usuário específico",
+                "operationId": "b2187887cef8d2c7775db71543f5a8f6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Usuário"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Registro não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "/v1/usuarios"
+                ],
+                "summary": "Deletar usuário",
+                "description": "Deleta um usuário",
+                "operationId": "fc6e394d49f10b3a5e53f2c556802dab",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Sucesso, sem corpo de resposta"
+                    },
+                    "404": {
+                        "description": "Registro não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/usuarios{id}": {
+            "put": {
+                "tags": [
+                    "/v1/usuarios"
+                ],
+                "summary": "Atualizar usuário",
+                "description": "Atualiza todos os dados de um usuário",
+                "operationId": "eee64ee8ad9364880a2f768810ae69a8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nome",
+                                    "email",
+                                    "senha"
+                                ],
+                                "properties": {
+                                    "nome": {
+                                        "description": "Nome do usuário",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "E-mail do usuário",
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "senha": {
+                                        "description": "Senha - Mínimo 6 caracteres, contendo ao menos uma letra maiúscula, uma minúscula, um número e um caractere especial.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Registro atualizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Usuário"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Registro não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "420": {
+                        "description": "Erro de validação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "pattern": "O campo x é obrigatório. (+ 3 erros)"
+                                        },
+                                        "errors": {
+                                            "description": "Campos com erro de validação e lista dos erros",
+                                            "type": "object",
+                                            "example": {
+                                                "campo_x": [
+                                                    "O campo x é obrigatório."
+                                                ],
+                                                "campo_y": [
+                                                    "O campo y deve ser um inteiro."
+                                                ],
+                                                "campo_z": [
+                                                    "O campo z deve ter no máximo 30 caracteres."
+                                                ],
+                                                "campo_w": [
+                                                    "O campo w é obrigatório."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "/v1/usuarios"
+                ],
+                "summary": "Atualizar parcialmente usuário",
+                "description": "Atualiza parcialmente os dados de um usuário",
+                "operationId": "5f67a590f42f644a21706f996251a61b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nome",
+                                    "email",
+                                    "senha"
+                                ],
+                                "properties": {
+                                    "nome": {
+                                        "description": "Nome do usuário",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "E-mail do usuário",
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "senha": {
+                                        "description": "Senha - Mínimo 6 caracteres, contendo ao menos uma letra maiúscula, uma minúscula, um número e um caractere especial.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Registro atualizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Usuário"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Registro não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "420": {
+                        "description": "Erro de validação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "pattern": "O campo x deve ser um inteiro. (+ 2 erros)"
+                                        },
+                                        "errors": {
+                                            "description": "Campos com erro de validação e lista dos erros",
+                                            "type": "object",
+                                            "example": {
+                                                "campo_x": [
+                                                    "O campo x deve ser um inteiro."
+                                                ],
+                                                "campo_y": [
+                                                    "O campo y deve ser um inteiro."
+                                                ],
+                                                "campo_z": [
+                                                    "O campo z deve ter no máximo 30 caracteres."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Usuário": {
+                "title": "Usuário",
+                "description": "Modelo Usuário",
+                "properties": {
+                    "id": {
+                        "description": "Id do usuário",
+                        "type": "integer"
+                    },
+                    "nome": {
+                        "description": "Nome",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "E-mail",
+                        "type": "string"
+                    },
+                    "senha": {
+                        "description": "Senha - Mínimo 6 caracteres, contendo ao menos uma letra maiúscula, uma minúscula, um número e um caractere especial.",
+                        "type": "string"
+                    },
+                    "criado_em": {
+                        "description": "Data da criação do registro",
+                        "type": "string",
+                        "pattern": "10/01/2024 15:12:40"
+                    },
+                    "atualizado_em": {
+                        "description": "Data da atualização do registro",
+                        "type": "string",
+                        "pattern": "10/01/2024 15:15:30"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "/v1/usuarios",
+            "description": "/v1/usuarios"
+        }
+    ]
+}

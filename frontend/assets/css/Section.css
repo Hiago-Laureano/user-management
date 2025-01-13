@@ -1,0 +1,126 @@
+section{
+    min-height: 500px
+}
+
+.section-content{
+    padding: 20px;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.7);
+    min-height: 500px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.section-title{
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-add-user{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-list-user{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.table-content{
+    background-color: rgba(143, 204, 240, 0.8);
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-overflow{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-data{
+    border-collapse: collapse;
+    border-spacing: 1;
+    text-align: left;
+    width: 100%;
+}
+
+.table-icon{
+    text-align: center;
+    cursor: pointer;
+}
+
+.table-data th{
+    background-color: rgb(96, 170, 255);
+    color: black;
+    border: 1px solid #afaeae;
+    padding: 5px;
+}
+
+.table-data td{
+    border: 1px solid #afaeae;
+    padding: 5px;
+    background-color: white;
+    color: rgb(87, 87, 87);
+    font-size: 14px;
+}
+
+#load-list-user{
+    display: none;
+}
+#load-add-user{
+    margin-top: 20px;
+    display: none;
+}
+
+#btn-list-user{
+    margin-bottom: 20px;
+}
+
+.page-turner{
+    border-radius: 12px;
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#count-page{
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 26px;
+}
+#page-back, #page-next{
+    font-size: 26px;
+    cursor: pointer;
+}
+
+#page-back{
+    color: #ccc;
+}
+
+#page-next{
+    color: black;
+}
+
+@media screen and (min-height: 841px){
+    section{
+        min-height: 100vh;
+    }
+}

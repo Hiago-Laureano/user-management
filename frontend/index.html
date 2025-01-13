@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/image/favicon.ico">
+    <link rel="stylesheet" href="./assets/css/Navbar.css">
+    <link rel="stylesheet" href="./assets/css/Footer.css">
+    <link rel="stylesheet" href="./assets/css/Section.css">
+    <link rel="stylesheet" href="./assets/css/Modal.css">
+    <link rel="stylesheet" href="./assets/css/Main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="assets/js/Sidebar.js"></script>
+    <script src="assets/js/Navbar.js"></script>
+    <script src="assets/js/Modal.js"></script>
+    <script src="assets/js/Pagination.js"></script>
+    <script src="assets/js/RequestAPI.js"></script>
+    <title>Gestão de Usuários</title>
+</head>
+<body>
+    <div class="background">
+        <navbar>
+            <div class="nav-content bg-primary">
+                <div class="nav-branch">
+                    <img id="branch-icon" src="./assets/image/favicon.ico" alt="icone">
+                    <p class="nav-text text-primary">Gestão de Usuários</p>
+                </div>
+                <div class="nav-menu">
+                    <div class="options-menu">
+                        <button onclick="closeAllAlerts(); addUser()" class="button-menu">
+                            <i id="icon-button-menu" class="bi bi-person-add"></i>
+                            Cadastrar Usuários
+                        </button>
+                        <button onclick="closeAllAlerts(); listUsers(); getUsers()" class="button-menu">
+                            <i id="icon-button-menu" class="bi bi-person-lines-fill"></i>
+                            Listar Usuários
+                        </button>
+                    </div>
+                    <i onclick="closeSidebar()" class="icon-close-sidebar text-primary bi bi-x"></i>
+                    <i onclick="openSidebar()" class="icon-menu text-primary bi bi-list"></i>
+                </div>
+                <div class="nav-sidebar">
+                    <div class="sidebar-header bg-secondary">
+                        <p class="nav-text text-secondary">Menu</p>
+                    </div>
+                    <div class="sidebar-body">
+                        <button onclick="closeAllAlerts(); addUser(); closeSidebar()" class="button-menu">
+                            <i id="icon-button-menu" class="bi bi-person-add"></i>
+                            Cadastrar Usuários
+                        </button>
+                        <button onclick="closeAllAlerts(); listUsers(); getUsers(); closeSidebar()" class="button-menu">
+                            <i id="icon-button-menu" class="bi bi-person-lines-fill"></i>
+                            Listar Usuários
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </navbar>
+        <section>
+            <div class="section-content">
+                <div class="section-list-user">
+                    <h2 class="section-title bg-primary">Lista de Usuários</h2>
+                    <div id="alert-list-user" class="alert"></div>
+                    <div class="table-content">
+                        <button onclick="closeAllAlerts(); getUsers()" id="btn-list-user" class="btn-primary">
+                            <i class="bi bi-arrow-clockwise"></i> Recarregar
+                        </button>
+                        <div class="table-overflow">
+                            <table id="table-users" class="table-data"></table>
+                        </div>
+                        <div id="load-list-users" class="spinner"></div>
+                        <div class="page-turner bg-primary">
+                            <i onclick="setTimeout(() => {if(backPage()){getUsers()}}, 100)" id="page-back" class="bi bi-arrow-left-square"></i>
+                            <div last="0" id="count-page">0</div>
+                            <i onclick="setTimeout(() => {if(nextPage()){getUsers()}}, 100)" id="page-next" class="bi bi-arrow-right-square"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-add-user">
+                    <h2 class="section-title bg-primary">Cadastrar Usuário</h2>
+                    <div id="alert-add-user" class="alert"></div>
+                    <input id="input-name" class="input-primary" type="text" placeholder="Nome"><br>
+                    <input id="input-email" class="input-primary" type="text" placeholder="E-mail"><br>
+                    <input id="input-password" class="input-primary" type="password" placeholder="Senha"><br>
+                    <input id="input-repeat-password" class="input-primary" type="password" placeholder="Confirme a senha"><br>
+                    <button onclick="createUser()" id="btn-add-user" class="btn-primary">Cadastrar</button>
+                    <div id="load-add-user" class="spinner"></div>
+                </div>
+            </div>
+            <modal class="modal-section">
+                <div class="container-modal-section-close">
+                    <i onclick="closeModal()" id="modal-section-close" class="bi bi-x"></i>
+                </div>
+                <div id="modal-alert" class="alert"></div>
+                <div id="modal-load" class="spinner"></div>
+                <div class="modal-section-delete">
+                    <h3>Deseja realmente deletar esse registro (ID = <span id="edit-user-id"></span>)?</h3>
+                    <button onclick="deleteUser()" id="model-btn-delete">Deletar</button>
+                </div>
+                <div class="modal-section-edit">
+                    <h2 class="section-title bg-primary">Atualizar Usuário</h2>
+                    <div class="modal-content-edit">
+                        <h6>Se não desejar alterar a senha basta não completar os campos de senha</h6>
+                        <input id="input-edit-id" class="input-primary" type="text" placeholder="ID" disabled><br>
+                        <input id="input-edit-name" class="input-primary" type="text" placeholder="Nome"><br>
+                        <input id="input-edit-email" class="input-primary" type="text" placeholder="E-mail"><br>
+                        <input id="input-edit-password" class="input-primary" type="password" placeholder="Nova senha"><br>
+                        <input id="input-edit-repeat-password" class="input-primary" type="password" placeholder="Confirme a nova senha"><br>
+                        <button onclick="updateUser()" id="btn-edit-user" class="btn-primary">Atualizar</button>
+                    </div>
+                </div>
+            </modal>
+        </section>
+        <footer>
+            <div class="footer-content bg-primary">
+                <div class="footer-row">
+                    <div class="footer-column">
+                        <h2 class="bg-secondary text-secondary footer-title">Desenvolvedor</h2>
+                        <h3 class="footer-content-text">
+                            <i id="icon-footer" class="bi bi-person-circle"></i>
+                            Hiago Laureano
+                        </h3>
+                        <hr>
+                        <h3 class="footer-content-text">
+                            <i id="icon-footer" class="bi bi-code-slash"></i>
+                            Dev Full Stack
+                        </h3>
+                        <hr>
+                    </div>
+                    <div class="footer-column">
+                        <h2 class="bg-secondary text-secondary footer-title">Páginas</h2>
+                        <h3 class="footer-content-text">
+                            <i id="icon-footer" class="bi bi-github"></i>
+                            <a href="https://github.com/Hiago-Laureano">GitHub</a>
+                        </h3>
+                        <hr>
+                        <h3 class="footer-content-text">
+                            <i id="icon-footer" class="bi bi-linkedin"></i>
+                            <a href="www.linkedin.com/in/hiago-s-laureano">Linkedin</a>
+                        </h3>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+*{
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+hr{
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 1px;
+    background-color: #ccc;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+a{
+    color: white;
+    font-weight: bold;
+}
+
+.alert{
+    display: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.background{
+    height: 100%;
+    background-image: url("../image/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.input-primary{
+    border: none;
+    border-radius: 7px 7px 0 0;
+    padding: 15px;
+    background-color: rgba(255, 228, 196, 0.7);
+    border-bottom: 2px solid rgb(57, 122, 184);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    min-width: 200px;
+}
+.input-primary:focus{
+    outline: none;
+}
+
+.btn-primary{
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    background: rgb(57, 122, 184);
+}
+
+.btn-primary:hover{
+    background: rgb(54, 95, 134);
+}
+
+.bg-primary{
+    background-color: rgb(57, 122, 184);
+}
+
+.bg-secondary{
+    background-color: rgb(186, 208, 228);
+}
+
+.text-primary{
+    color: rgb(186, 208, 228);
+}
+
+.text-secondary{
+    color: rgb(57, 122, 184);
+}
+
+.spinner{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 4px solid #ccc;
+    border-top-color: rgb(57, 122, 184);
+    animation: loading 1s linear infinite;
+}
+@keyframes loading{
+    to {
+        transform: rotate(360deg);
+    }
+}
