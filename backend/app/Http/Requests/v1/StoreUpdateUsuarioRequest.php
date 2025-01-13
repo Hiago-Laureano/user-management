@@ -31,7 +31,7 @@ class StoreUpdateUsuarioRequest extends FormRequest
         ];
 
         // Regras para PUT
-        if($this->method() === "PATCH"){
+        if($this->method() === "PUT"){
             $rules["email"] = ["required", "email", "max:150", Rule::unique("usuarios")->ignore($this->route("usuario"))];
         }
 
