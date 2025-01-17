@@ -26,7 +26,7 @@ class UsuarioController extends Controller
      *         name="page",
      *         in="query",
      *         description="Número da paginação dos dados. São 15 registros por paginação",
-     *         @OA\Schema(type="int"),
+     *         @OA\Schema(type="integer"),
      *         style="form"
      *     ),
      *     @OA\Response(
@@ -64,10 +64,11 @@ class UsuarioController extends Controller
      *     description="Retorna um usuário específico",
      *     @OA\Parameter(
      *         name="id",
-     *         in="query",
+     *         in="path",
      *         description="Id do usuário",
      *         required=true,
-     *         @OA\Schema(type="int")
+     *         @OA\Schema(type="integer"),
+     *         style="form"
      *     ),
      *     @OA\Response(
      *         response=200,
@@ -141,10 +142,11 @@ class UsuarioController extends Controller
      *     description="Atualiza todos os dados de um usuário",
      *     @OA\Parameter(
      *         name="id",
-     *         in="query",
+     *         in="path",
      *         description="Id do usuário",
      *         required=true,
-     *         @OA\Schema(type="int")
+     *         @OA\Schema(type="integer"),
+     *         style="form"
      *     ),
      *     @OA\RequestBody(
      *         required=true,
@@ -191,10 +193,11 @@ class UsuarioController extends Controller
      *     description="Atualiza parcialmente os dados de um usuário",
      *     @OA\Parameter(
      *         name="id",
-     *         in="query",
+     *         in="path",
      *         description="Id do usuário",
      *         required=true,
-     *         @OA\Schema(type="int")
+     *         @OA\Schema(type="integer"),
+     *         style="form"
      *     ),
      *     @OA\RequestBody(
      *         required=true,
@@ -249,10 +252,11 @@ class UsuarioController extends Controller
      *     description="Deleta um usuário",
      *     @OA\Parameter(
      *         name="id",
-     *         in="query",
+     *         in="path",
      *         description="Id do usuário",
      *         required=true,
-     *         @OA\Schema(type="int")
+     *         @OA\Schema(type="integer"),
+     *         style="form"
      *     ),
      *     @OA\Response(
      *         response=204,
